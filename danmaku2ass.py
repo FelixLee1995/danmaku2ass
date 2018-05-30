@@ -787,30 +787,35 @@ def GetCommentProcessor(input_file):
 
 
 def main():
-    logging.basicConfig(format='%(levelname)s: %(message)s')
-    if len(sys.argv) == 1:
-        sys.argv.append('--help')
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-f', '--format', metavar=_('FORMAT'), help=_('Format of input file (autodetect|%s) [default: autodetect]') % '|'.join(i for i in CommentFormatMap), default='autodetect')
-    parser.add_argument('-o', '--output', metavar=_('OUTPUT'), help=_('Output file'))
-    parser.add_argument('-s', '--size', metavar=_('WIDTHxHEIGHT'), required=True, help=_('Stage size in pixels'))
-    parser.add_argument('-fn', '--font', metavar=_('FONT'), help=_('Specify font face [default: %s]') % _('(FONT) sans-serif')[7:], default=_('(FONT) sans-serif')[7:])
-    parser.add_argument('-fs', '--fontsize', metavar=_('SIZE'), help=(_('Default font size [default: %s]') % 25), type=float, default=25.0)
-    parser.add_argument('-a', '--alpha', metavar=_('ALPHA'), help=_('Text opacity'), type=float, default=1.0)
-    parser.add_argument('-dm', '--duration-marquee', metavar=_('SECONDS'), help=_('Duration of scrolling comment display [default: %s]') % 5, type=float, default=5.0)
-    parser.add_argument('-ds', '--duration-still', metavar=_('SECONDS'), help=_('Duration of still comment display [default: %s]') % 5, type=float, default=5.0)
-    parser.add_argument('-fl', '--filter', help=_('Regular expression to filter comments'))
-    parser.add_argument('-p', '--protect', metavar=_('HEIGHT'), help=_('Reserve blank on the bottom of the stage'), type=int, default=0)
-    parser.add_argument('-r', '--reduce', action='store_true', help=_('Reduce the amount of comments if stage is full'))
-    parser.add_argument('file', metavar=_('FILE'), nargs='+', help=_('Comment file to be processed'))
-    args = parser.parse_args()
-    try:
-        width, height = str(args.size).split('x', 1)
-        width = int(width)
-        height = int(height)
-    except ValueError:
-        raise ValueError(_('Invalid stage size: %r') % args.size)
-    Danmaku2ASS(args.file, args.format, args.output, width, height, args.protect, args.font, args.fontsize, args.alpha, args.duration_marquee, args.duration_still, args.filter, args.reduce)
+    # logging.basicConfig(format='%(levelname)s: %(message)s')
+    # if len(sys.argv) == 1:
+    #     sys.argv.append('--help')
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument('-f', '--format', metavar=_('FORMAT'), help=_('Format of input file (autodetect|%s) [default: autodetect]') % '|'.join(i for i in CommentFormatMap), default='autodetect')
+    # parser.add_argument('-o', '--output', metavar=_('OUTPUT'), help=_('Output file'))
+    # parser.add_argument('-s', '--size', metavar=_('WIDTHxHEIGHT'), required=True, help=_('Stage size in pixels'))
+    # parser.add_argument('-fn', '--font', metavar=_('FONT'), help=_('Specify font face [default: %s]') % _('(FONT) sans-serif')[7:], default=_('(FONT) sans-serif')[7:])
+    # parser.add_argument('-fs', '--fontsize', metavar=_('SIZE'), help=(_('Default font size [default: %s]') % 25), type=float, default=25.0)
+    # parser.add_argument('-a', '--alpha', metavar=_('ALPHA'), help=_('Text opacity'), type=float, default=1.0)
+    # parser.add_argument('-dm', '--duration-marquee', metavar=_('SECONDS'), help=_('Duration of scrolling comment display [default: %s]') % 5, type=float, default=5.0)
+    # parser.add_argument('-ds', '--duration-still', metavar=_('SECONDS'), help=_('Duration of still comment display [default: %s]') % 5, type=float, default=5.0)
+    # parser.add_argument('-fl', '--filter', help=_('Regular expression to filter comments'))
+    # parser.add_argument('-p', '--protect', metavar=_('HEIGHT'), help=_('Reserve blank on the bottom of the stage'), type=int, default=0)
+    # parser.add_argument('-r', '--reduce', action='store_true', help=_('Reduce the amount of comments if stage is full'))
+    # parser.add_argument('file', metavar=_('FILE'), nargs='+', help=_('Comment file to be processed'))
+    # args = parser.parse_args()
+    # try:
+    #     width, height = str(args.size).split('x', 1)
+    #     width = int(width)
+    #     height = int(height)
+    # except ValueError:
+    #     raise ValueError(_('Invalid stage size: %r') % args.size)
+    # Danmaku2ASS(args.file, args.format, args.output, width, height, args.protect, args.font, args.fontsize, args.alpha, args.duration_marquee, args.duration_still, args.filter, args.reduce)
+    Danmaku2ASS('test.xml', 'Bilibili', 'test.ass', 1920, 1080, 0, ('(FONT) sans-serif')[7:], 50.0, 1.0, 8.0, 5.0, None, False, None)
+
+    # def Danmaku2ASS(input_files, input_format, output_file, stage_width, stage_height, reserve_blank=0,
+    #                 font_face=_('(FONT) sans-serif')[7:], font_size=25.0, text_opacity=1.0, duration_marquee=5.0,
+    #                 duration_still=5.0, comment_filter=None, is_reduce_comments=False, progress_callback=None):
 
 
 if __name__ == '__main__':
